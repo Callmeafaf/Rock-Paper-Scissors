@@ -14,7 +14,7 @@ else {return "scissors"};
     function getHumanChoice(){
         let choice = "";
         while (choice != "rock" && choice != "paper" && choice != "scissors"){
-            choice= prompt("Enter your choice in lowercase: ",  );
+            choice=prompt("Enter your choice: ",  ).toLowerCase();
             if (choice != "rock" && choice != "paper" && choice != "scissors"){
                 console.log("Invalid choice");
             } 
@@ -23,6 +23,8 @@ else {return "scissors"};
 
     }
     console.log(getHumanChoice());
+    let computerScore = 0;
+    let humanScore = 0;
     </script>
 </head>
 <body>
