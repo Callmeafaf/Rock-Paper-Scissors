@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
     <script>
-      function getComputerChoice(){
-        let choice = Math.random();
-if (choice < 0.33){ return "rock"}
-else if (choice < 0.66){return "paper"}
-else {return "scissors"};
-      }  
-    function getHumanChoice(){
+     function playGame() {
+        let computerScore = 0;
+        let humanScore = 0;
+        let computerSelection;
+        let humanSelection;
+
+        function getHumanChoice(){
         let choice = "";
         while (choice != "rock" && choice != "paper" && choice != "scissors"){
             choice=prompt("Enter your choice: ",  ).toLowerCase();
@@ -21,15 +21,18 @@ else {return "scissors"};
         }
         return choice;
 
-    }
-   
-    let computerScore = 0;
-    let humanScore = 0;
-    function playRound(computerSelection,humanSelection){
+       }
+        function getComputerChoice(){
+        let choice = Math.random();
+if (choice < 0.33){ return "rock"}
+else if (choice < 0.66){return "paper"}
+else {return "scissors"};
+      }  
+        function playRound(computerSelection,humanSelection){
         if (computerSelection === humanSelection){
-            console.log("No winner! ,equal choice");
+            console.log("No winner! ,equal choice (" + humanSelection +")");
         }
-        else if (humanSelection == "rock" && computerSelection == "scissors" |humanSelection == "scissors" && computerSelection == "paper" |humanSelection == "paper" && computerSelection == "rock"){
+        else if ((humanSelection == "rock" && computerSelection == "scissors") |(humanSelection == "scissors" && computerSelection == "paper") |(humanSelection == "paper" && computerSelection == "rock")){
             humanScore++ ;
             console.log("you win! "+humanSelection+" beats "+computerSelection);
         }
@@ -39,11 +42,24 @@ else {return "scissors"};
 
         }
     }
-    const computerSelection = getComputerChoice();
-    const humanSelection = getHumanChoice();
-    console.log(computerSelection);
-    console.log(humanSelection);
-    playRound(computerSelection,humanSelection);
+       
+        for (let i=1;i<=5;i++){
+             computerSelection = getComputerChoice();
+             humanSelection = getHumanChoice();
+            playRound(computerSelection,humanSelection);  
+        }
+       console.log("the final score is : \n"+  computerScore +" point(s) for the computer \n"+  humanScore+" for you");
+       if (computerScore === humanScore){
+        console.log("no winner, equality!");
+       }
+       else if (computerScore>humanScore){
+        console.log("you lose!");
+       }
+       else{
+        console.log("you win, congrats!");
+       }
+    }
+    playGame();
     </script>
 </head>
 <body>
