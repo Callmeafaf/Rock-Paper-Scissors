@@ -11,7 +11,18 @@ if (choice < 0.33){ return "rock"}
 else if (choice < 0.66){return "paper"}
 else {return "scissors"};
       }  
-      console.log(getComputerChoice());
+    function getHumanChoice(){
+        let choice = "";
+        while (choice != "rock" && choice != "paper" && choice != "scissors"){
+            choice= prompt("Enter your choice in lowercase: ",  );
+            if (choice != "rock" && choice != "paper" && choice != "scissors"){
+                console.log("Invalid choice");
+            } 
+        }
+        return choice;
+
+    }
+    console.log(getHumanChoice());
     </script>
 </head>
 <body>
