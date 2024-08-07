@@ -22,9 +22,28 @@ else {return "scissors"};
         return choice;
 
     }
-    console.log(getHumanChoice());
+   
     let computerScore = 0;
     let humanScore = 0;
+    function playRound(computerSelection,humanSelection){
+        if (computerSelection === humanSelection){
+            console.log("No winner! ,equal choice");
+        }
+        else if (humanSelection == "rock" && computerSelection == "scissors" |humanSelection == "scissors" && computerSelection == "paper" |humanSelection == "paper" && computerSelection == "rock"){
+            humanScore++ ;
+            console.log("you win! "+humanSelection+" beats "+computerSelection);
+        }
+        else{
+            computerScore++;
+            console.log("you lose! "+computerSelection+" beats "+humanSelection);
+
+        }
+    }
+    const computerSelection = getComputerChoice();
+    const humanSelection = getHumanChoice();
+    console.log(computerSelection);
+    console.log(humanSelection);
+    playRound(computerSelection,humanSelection);
     </script>
 </head>
 <body>
