@@ -4,24 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
-    <script>
-     function playGame() {
-        let computerScore = 0;
-        let humanScore = 0;
-        let computerSelection;
-        let humanSelection;
-
-        function getHumanChoice(){
-        let choice = "";
-        while (choice != "rock" && choice != "paper" && choice != "scissors"){
-            choice=prompt("Rock, paper or scissors?  Enter your choice: ",  ).toLowerCase();
-            if (choice != "rock" && choice != "paper" && choice != "scissors"){
-                console.log("Invalid choice");
-            } 
+    <style>
+        h1,h3{
+           
+            text-align:center;
+        
+            
         }
-        return choice;
+        #choices{
+            margin:auto;
+            display:flex;
+            justify-content:space-evenly;
+            margin-top:100px;
+            margin-bottom:85px;
+        }
+        button{
+            background-color:rgb(133, 63, 63);
+            color:bisque;
+            border:3px  solid bisque;
+            border-radius:20px;
+            width:150px;
+            height:50px;
+            font-weight:bold;
+            font-size:20px;
 
-       }
+        }
+        body{
+            background-color: rgb(160, 64, 64);
+            font-family:sans-serif;
+        }
+        li{
+
+            margin-left:30%;
+            margin-top:20px;
+            color:antiquewhite;
+            font-size:17px;
+            font-weight:bold;      
+}
+h3{text-decoration: underline;
+    color:antiquewhite;}
+h1{color:whitesmoke;}
+        
+    </style>
+</head>
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <div>
+        <h3>Game Rules</h3>
+        <ul>
+            <li>You will select one of the three choices by clicking on the corresponding button below</li>
+            <li>The computer will also make a random choice</li>
+            <li>You will play five rounds and the winner will be announced at the end</li>
+        </ul>
+    </div>
+    <div id="choices">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    <h3>Result:</h3>
+    <div id="result">
+       
+    </div>
+    <h3>Score:</h3>
+    <div id="score">
+        
+    </div>
+</body>
+<script>
+    
+
+
+     
+    let computerScore = 0;
+    let humanScore = 0;
+    let games=0;
+        const rock=document.querySelector("#rock");
+    const paper=document.querySelector("#paper");
+    const scissors=document.querySelector("#scissors");
+    
+rock.addEventListener('click',()=>{
+    rock.setAttribute('style','background-color:bisque; color:rgb(133, 63, 63)');
+    let val=rock.textContent;
+    let computer=getComputerChoice();
+    val=val.toLowerCase();
+    playRound(computer,val);
+    games++;
+    setTimeout(()=>{
+
+     rock.setAttribute ('style','background-color:rgb(133, 63, 63); color:bisque;');},400);
+})
+paper.addEventListener('click',()=>{
+    paper.setAttribute('style','background-color:bisque; color:rgb(133, 63, 63)');
+   let val=paper.textContent;
+    let computer=getComputerChoice();
+    val=val.toLowerCase();
+    playRound(computer,val);
+    games++;
+    setTimeout(()=>{
+
+paper.setAttribute ('style','background-color:rgb(133, 63, 63); color:bisque;');},400);
+})
+scissors.addEventListener('click',()=>{
+scissors.setAttribute('style','background-color:bisque; color:rgb(133, 63, 63)');
+   let val=scissors.textContent;
+   let computer=getComputerChoice();
+   val=val.toLowerCase();
+    playRound(computer,val);
+    games++;
+    setTimeout(()=>{
+
+scissors.setAttribute ('style','background-color:rgb(133, 63, 63); color:bisque;');},400);
+})
+
+        
+      
         function getComputerChoice(){
         let choice = Math.random();
 if (choice < 0.33){ return "rock"}
@@ -29,41 +126,57 @@ else if (choice < 0.66){return "paper"}
 else {return "scissors"};
       }  
         function playRound(computerSelection,humanSelection){
+           
+            const result=document.createElement('p');
+            
         if (computerSelection === humanSelection){
-            console.log("No winner! ,equal choice (" + humanSelection +")");
+            
+            result.textContent="No winner! ,equal choice (" +humanSelection+")";
         }
         else if ((humanSelection == "rock" && computerSelection == "scissors") |(humanSelection == "scissors" && computerSelection == "paper") |(humanSelection == "paper" && computerSelection == "rock")){
             humanScore++ ;
-            console.log("you win! "+humanSelection+" beats "+computerSelection);
+        result.textContent="you win! "+humanSelection+" beats "+computerSelection;
         }
         else{
             computerScore++;
-            console.log("you lose! "+computerSelection+" beats "+humanSelection);
+            result.textContent="you lose! "+computerSelection+" beats "+humanSelection;
 
         }
-    }
-       
-        for (let i=1;i<=5;i++){
-             computerSelection = getComputerChoice();
-             humanSelection = getHumanChoice();
-            playRound(computerSelection,humanSelection);  
-        }
-       console.log("the final score is : \n"+  computerScore +" point(s) for the computer \n"+  humanScore+" for you");
+        const res=document.querySelector("#result");
+        res.replaceChildren();
+        result.setAttribute('style','text-align:center; color:bisque; font-family:sans-serif; font-size:25px;')
+        
+        res.appendChild(result);
+        const score=document.createElement('p');
+        const final=document.querySelector('#score');
+        final.replaceChildren();
+       score.textContent=`the running score is : \n  ${computerScore}  point(s) for the computer \n  ${humanScore} for you`;
+       score.setAttribute('style','text-align:center; color:bisque; font-family:sans-serif; font-size:25px;')
+       final.appendChild(score);
+       if(humanScore==5|computerScore==5){
+       const finscore=document.createElement('p');
        if (computerScore === humanScore){
-        console.log("no winner, equality!");
+        finscore.textContent="Game Over!     no winner, equality!";
        }
        else if (computerScore>humanScore){
-        console.log("you lose!");
+        finscore.textContent="Game Over!     you lose!";
        }
        else{
-        console.log("you win, congrats!");
+        finscore.textContent="Game Over!     you win, congrats!";
        }
-    }
-    playGame();
-    alert("Check the console to see your result!");
+       finscore.setAttribute('style','text-align:center; color:white; font-family:sans-serif; font-size:40px;')
+      
+       final.appendChild(finscore);
+       humanScore=0;
+    computerScore=0; 
+    setTimeout(()=>{
+       final.replaceChildren();
+res.replaceChildren();
+    },1600);
+
+    }}
+       
+
+
     </script>
-</head>
-<body>
-    
-</body>
 </html>
